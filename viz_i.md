@@ -334,11 +334,37 @@ weather_df %>%
 
 <img src="viz_i_files/figure-gfm/unnamed-chunk-20-1.png" width="90%" />
 
-``` r
-weather_plot = ggplot(weather_df, aes(x = tmin, y = tmax)) + 
-  geom_point(aes(color = name), alpha = .5) 
+## Save and Embed
 
-ggsave("weather_plot.pdf", weather_plot, width = 8, height = 5)
+Let’s save a scatterplot.
+
+``` r
+weather_plot =
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) + 
+  geom_point(alpha = .5) 
+
+ggsave("./results/weather_plot.pdf", weather_plot, width = 8, height = 5)
 ```
 
     ## Warning: Removed 15 rows containing missing values (geom_point).
+
+What about embedding…
+
+``` r
+weather_plot
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+<img src="viz_i_files/figure-gfm/unnamed-chunk-22-1.png" width="90%" />
+
+Embed at different size
+
+``` r
+weather_plot
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+<img src="viz_i_files/figure-gfm/unnamed-chunk-23-1.png" width="90%" />
