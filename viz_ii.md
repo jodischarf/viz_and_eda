@@ -312,3 +312,39 @@ tmax_date_p =
     ## Warning: Removed 3 rows containing missing values (geom_point).
 
 <img src="viz_ii_files/figure-gfm/unnamed-chunk-11-1.png" width="90%" />
+
+## Data manipulation
+
+Control your factors.
+
+``` r
+weather_df %>%
+  mutate(
+    name = factor(name),
+    name = forcats::fct_relevel(name, c("Waikiki_HA", "CentralPark_NY", "Waterhole_WA"))) %>% 
+  ggplot(aes(x = name, y = tmax)) + 
+  geom_violin(aes(fill = name), color = "blue", alpha = .5) + 
+  theme(legend.position = "bottom")
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_ydensity).
+
+<img src="viz_ii_files/figure-gfm/unnamed-chunk-12-1.png" width="90%" />
+
+What if I wanted densities for tmin and tmax simultaneously?
+
+``` r
+weather_df %>%
+  pivot_longer(
+    tmax:tmin,
+    names_to = "observation", 
+    values_to = "temp") %>% 
+  ggplot(aes(x = temp, fill = observation)) +
+  geom_density(alpha = .5) + 
+  facet_grid(~name) + 
+  viridis::scale_fill_viridis(discrete = TRUE)
+```
+
+    ## Warning: Removed 18 rows containing non-finite values (stat_density).
+
+<img src="viz_ii_files/figure-gfm/unnamed-chunk-13-1.png" width="90%" />
